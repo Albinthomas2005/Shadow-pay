@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadowPay | Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0c0c0c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    .home-icon {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      cursor: pointer;
+    }
+
+    .home-icon svg {
+      width: 30px;
+      height: 30px;
+      stroke: white;
+    }
+
+    .logo img {
+      width: 200px;
+      margin-bottom: 40px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 25px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    /* Left column will stack its internal sections */
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .section h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .welcome {
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    .welcome span {
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    .new-btn {
+      background: transparent;
+      border: 2px dashed white;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 12px 35px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .new-btn:hover {
+      background: white;
+      color: black;
+    }
+
+    .recent-transactions {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 250px;
+    }
+
+    .recent-transactions img {
+      width: 250px;
+      margin-bottom: 10px;
+    }
+
+    .recently-used .card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      transition: 0.3s;
+    }
+
+    .recently-used .card:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-info h4 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .card-info p {
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .toggle {
+      width: 40px;
+      height: 22px;
+      border-radius: 20px;
+      border: 2px solid white;
+      position: relative;
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="home-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75M4.5 10.5v9.75A1.5 1.5 0 006 21.75h12a1.5 1.5 0 001.5-1.5V10.5M8.25 21.75V12h7.5v9.75" />
+    </svg>
+  </div>
+
+  <div class="logo"><img src="logowhite.png" alt="ShadowPay Logo"></div>
+
+  <div class="dashboard">
+    <div class="left-column">
+      <div class="section">
+        <div class="welcome"><span>Hello,</span><br>Welcome to your Dashboard</div>
+        <button class="new-btn">NEW+</button>
+      </div>
+
+      <div class="section recent-transactions">
+        <h3>Recent Transactions</h3>
+        <img src="no-transactions.png" alt="No Recent Transactions">
+        <p>No Recent Transactions</p>
+      </div>
+    </div>
+
+    <div class="section recently-used">
+      <h3>Recently Used</h3>
+      <div class="card">
+        <div class="card-info">
+          <h4>Netflix</h4>
+          <p>2345 xxxx xxxx xxxx</p>
+        </div>
+        <div class="toggle"></div>
+      </div>
+      <div class="card">
+        <div class="card-info">
+          <h4>Amazon</h4>
+          <p>0932 xxxx xxxx xxxx</p>
+        </div>
+        <div class="toggle"></div>
+      </div>
+      <div class="card">
+        <div class="card-info">
+          <h4>Test</h4>
+          <p>6732 xxxx xxxx xxxx</p>
+        </div>
+        <div class="toggle"></div>
+      </div>
+      <!-- Placeholder for dynamic card population -->
+    </div>
+  </div>
+</body>
+</html>

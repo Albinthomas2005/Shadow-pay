@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ShadowPay — Stacked Panels</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  html{scroll-behavior:smooth}
+  body{scroll-snap-type:y mandatory;overflow-y:auto}
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .panel{
+    height:100svh;width:100%;
+    background:#000 center/cover no-repeat;
+    scroll-snap-align:start;position:relative;
+    animation: fadeIn 0.8s ease-out;
+  }
+  .p1{background-image:url('p1.png')}
+  .p2{background-image:url('p2.png')}
+  .p3{background-image:url('p3.png')}
+  .p4{
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    background:#070707;
+  }
+  .p4 h1{
+    margin:0 0 18px;font-size:clamp(24px,6vw,48px);letter-spacing:1px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  .p4 .btn{
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  /* Buttons only inside p1 */
+  .top-buttons{
+    position:absolute;top:20px;right:30px;display:flex;gap:12px;z-index:10;
+    animation: slideInRight 0.6s ease-out 0.3s both;
+  }
+  .btn{
+    padding:10px 22px;
+    border:1.5px solid rgba(255,255,255,.25);
+    border-radius:8px;color:#fff;
+    background:rgba(0,0,0,.75);
+    text-decoration:none;font-weight:700;
+    backdrop-filter:blur(6px) saturate(140%);
+    box-shadow:0 4px 14px rgba(0,0,0,.35);
+    transition:transform .15s,background .2s,color .2s,box-shadow .2s;
+  }
+  .btn:hover{
+    background:#fff;color:#000;transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(255,255,255,.2);
+  }
+  .btn:active{transform:translateY(0)}
+</style>
+</head>
+<body>
+
+  <!-- Panel 1 with login/signup -->
+  <section class="panel p1">
+    <div class="top-buttons">
+  <a href="/ui/login/login.html" class="btn">Login</a>
+  <a href="/ui/signup/shadowpay_signup.html" class="btn">Sign Up</a>
+    </div>
+  </section>
+
+  <!-- Scroll panels -->
+  <section class="panel p2"></section>
+  <section class="panel p3"></section>
+
+  <!-- Final "Get Started" panel -->
+  <section class="panel p4">
+    <h1>Get started with ShadowPay</h1>
+  <a href="/ui/login/login.html" class="btn" aria-label="Go to login page">Get Started</a>
+  </section>
+
+</body>
+</html>

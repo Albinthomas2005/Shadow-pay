@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #fff;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .back-icon {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.6s ease-out 0.2s both;
+        }
+
+        .back-icon:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        .back-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            color: #c9a876;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            margin-bottom: clamp(20px, 3vh, 40px);
+            text-transform: uppercase;
+            text-align: center;
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            animation: slideInUp 0.8s ease-out 0.5s both;
+            display: none;
+        }
+
+        .pricing-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1100px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideInUp 0.8s ease-out 0.6s both;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 35px 30px;
+            width: 350px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            color: #000;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .pricing-card:hover::before {
+            left: 100%;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .pricing-card.pro {
+            background: rgba(68, 68, 68, 0.95);
+            color: #ffffff;
+        }
+
+        .badge {
+            border: 3px solid #000;
+            padding: 15px 30px;
+            display: inline-block;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-card.pro .badge {
+            border-color: #ffffff;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            line-height: 1;
+        }
+
+        .price .currency {
+            font-size: 2.5rem;
+        }
+
+        .price .period {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .features {
+            list-style: none;
+        }
+
+        .features li {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .pricing-card.pro .features li {
+            color: #ffffff;
+        }
+
+        .cta-button {
+            margin-top: 40px;
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #000;
+            background: transparent;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background: #000;
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .pricing-card.pro .cta-button {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        .pricing-card.pro .cta-button:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 0.2em;
+            }
+
+            .pricing-card {
+                width: 100%;
+                max-width: 380px;
+            }
+
+            .price {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-icon" onclick="window.location.href='dashboard.php'">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+    </div>
+
+    <h1>PRICING</h1>
+    
+    <div class="pricing-container">
+        <div class="pricing-card">
+            <div class="badge">BASIC</div>
+            <div class="price"><span class="currency">₹</span>200<span class="period">/mo.</span></div>
+            <ul class="features">
+                <li>10 cards</li>
+                <li>Domestic card</li>
+                <li>Custom Card incl.</li>
+                <li>0.3% charge</li>
+            </ul>
+            <a href="#" class="cta-button" onclick="openPayment('basic'); return false;">Get Started</a>
+        </div>
+
+        <div class="pricing-card pro">
+            <div class="badge">PRO</div>
+            <div class="price"><span class="currency">₹</span>2200<span class="period">/mo.</span></div>
+            <ul class="features">
+                <li>35 cards</li>
+                <li>International card</li>
+                <li>Custom Card incl.</li>
+                <li>0.05% charge</li>
+            </ul>
+            <a href="#" class="cta-button" onclick="openPayment('pro'); return false;">Get Started</a>
+        </div>
+    </div>
+
+    <script>
+        // Plan configurations
+        const plans = {
+            basic: {
+                name: 'Basic Plan',
+                description: 'Perfect for individuals starting with digital cards',
+                price: 200,
+                features: ['10 cards', 'Domestic card', 'Custom Card incl.', '0.3% charge'],
+                merchantName: 'ShadowPay',
+                merchantEmail: 'support@shadowpay.com'
+            },
+            pro: {
+                name: 'Pro Plan',
+                description: 'Advanced features for power users and businesses',
+                price: 2200,
+                features: ['35 cards', 'International card', 'Custom Card incl.', '0.05% charge'],
+                merchantName: 'ShadowPay',
+                merchantEmail: 'support@shadowpay.com'
+            }
+        };
+
+        // Helper function to create plan image as SVG data URI
+        function createPlanImage(text, bgColor, textColor) {
+            const svg = `
+                <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="400" fill="${bgColor}"/>
+                    <rect x="40" y="180" width="320" height="80" fill="none" stroke="${textColor}" stroke-width="3"/>
+                    <text x="200" y="235" font-family="Arial, sans-serif" font-size="56" font-weight="300" 
+                          fill="${textColor}" text-anchor="middle" letter-spacing="8">${text}</text>
+                </svg>
+            `.trim();
+            return 'data:image/svg+xml;base64,' + btoa(svg);
+        }
+
+        // Helper function to create ShadowPay logo as SVG data URI
+        function createLogoImage() {
+            const svg = `
+                <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#1a1a1a"/>
+                    <text x="50" y="60" font-family="Arial, sans-serif" font-size="18" font-weight="600" 
+                          fill="#c9a876" text-anchor="middle" letter-spacing="2">SHADOW</text>
+                    <text x="50" y="78" font-family="Arial, sans-serif" font-size="14" font-weight="400" 
+                          fill="#c9a876" text-anchor="middle" letter-spacing="2">PAY</text>
+                </svg>
+            `.trim();
+            return 'data:image/svg+xml;base64,' + btoa(svg);
+        }
+
+        function openPayment(planType) {
+            const plan = plans[planType];
+            if (!plan) {
+                alert('Invalid plan selected');
+                return;
+            }
+
+            // Create plan-specific images
+            const planImages = {
+                basic: createPlanImage('BASIC', '#000000', '#ffffff'),
+                pro: createPlanImage('PRO', '#444444', '#ffffff')
+            };
+
+            // Create payment data for Razorpay
+            const paymentData = {
+                name: plan.name,
+                description: plan.description,
+                price: plan.price,
+                quantity: 1,
+                image: planImages[planType],
+                merchantName: plan.merchantName,
+                merchantEmail: plan.merchantEmail,
+                merchantLogo: createLogoImage(),
+                planType: planType
+            };
+
+            // Build URL with parameters
+            const url = '../razorpay/index.html?' + new URLSearchParams(paymentData).toString();
+            
+            // Open payment page in popup
+            const paymentWindow = window.open(url, 'payment', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+            
+            // Listen for payment completion
+            const checkClosed = setInterval(() => {
+                if (paymentWindow.closed) {
+                    clearInterval(checkClosed);
+                    // Check if payment was successful
+                    checkPaymentStatus(planType);
+                }
+            }, 1000);
+
+            // Also listen for postMessage from payment page
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.success) {
+                    clearInterval(checkClosed);
+                    handlePaymentSuccess(event.data, planType);
+                }
+            });
+        }
+
+        function checkPaymentStatus(planType) {
+            // Check localStorage for payment completion
+            const purchaseData = localStorage.getItem('purchaseCompletion');
+            if (purchaseData) {
+                const data = JSON.parse(purchaseData);
+                if (data.success && data.planType === planType) {
+                    handlePaymentSuccess(data, planType);
+                }
+            }
+        }
+
+        function handlePaymentSuccess(paymentData, planType) {
+            console.log('Handling payment success:', paymentData, planType);
+            
+            // Send payment data to server for database update
+            fetch('payment_complete.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    plan: planType,
+                    transactionId: paymentData.transactionId,
+                    amount: paymentData.amount,
+                    paymentMethod: paymentData.paymentMethod,
+                    timestamp: paymentData.timestamp
+                })
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    // Clear localStorage
+                    localStorage.removeItem('purchaseCompletion');
+                    
+                    // Show success message
+                    alert('Payment successful! Your plan has been activated.');
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.php';
+                } else {
+                    console.error('Payment failed:', data);
+                    alert('Payment recorded but there was an issue updating your account. Please contact support.\n\nError: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('Payment successful but there was an issue processing your request. Please contact support.\n\nError: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>

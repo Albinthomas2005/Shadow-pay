@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadowPay | Get Creative</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('getcreative.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    /* Page transition overlay */
+    .page-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0c0c0c 100%);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .page-transition.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .back-icon {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: slideInLeft 0.6s ease-out 0.2s both;
+    }
+
+    .back-icon:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+    }
+
+    .back-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: white;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      animation: slideInUp 0.8s ease-out 0.4s both;
+      background: linear-gradient(45deg, #fff, #4CAF50);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      animation: slideInUp 0.8s ease-out 0.6s both;
+    }
+
+    .card-display {
+      width: 430px;
+      height: 270px;
+      background: #8d8d8d;
+      border-radius: 20px;
+      color: white;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .card-display:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .card-chip {
+      width: 45px;
+      height: 30px;
+      background: linear-gradient(135deg, #d9d9d9, #ffffff);
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-number {
+      letter-spacing: 2px;
+      font-size: 20px;
+      opacity: 0.9;
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cardholder {
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .color-picker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .color-wheel {
+      width: 260px;
+      height: 260px;
+      background: url('colorwheel.png') no-repeat center/cover;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      cursor: crosshair;
+      position: relative;
+      transition: transform 0.1s ease;
+    }
+
+    .color-wheel:active {
+      transform: scale(0.98);
+      box-shadow: 0 0 25px rgba(255,255,255,0.5);
+    }
+
+    .confirm-btn {
+      margin-top: 10px;
+      padding: 10px 25px;
+      border: 2px solid white;
+      border-radius: 10px;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confirm-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .confirm-btn:hover::before {
+      left: 100%;
+    }
+
+    .confirm-btn:hover {
+      background: white;
+      color: black;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+<body>
+  <!-- Page transition overlay -->
+  <div class="page-transition" id="pageTransition"></div>
+
+  <div class="back-icon" onclick="navigateWithTransition('namethecard.html')">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </div>
+
+  <h1>Get Creative</h1>
+
+  <div class="container">
+    <div class="card-display" id="card">
+      <div class="card-top">
+        <div class="card-chip"></div>
+        <div class="brand">SHADOWPAY</div>
+      </div>
+      <div class="card-number">XXXX XXXX XXXX XXXX</div>
+      <div class="card-bottom">
+        <div class="cardholder" id="cardNameDisplay">CARD NAME</div>
+        <div class="brand">VIRTUAL</div>
+      </div>
+    </div>
+
+    <div class="color-picker">
+      <div class="color-wheel" id="colorWheel"></div>
+      <button class="confirm-btn" onclick="confirmColor()">Confirm Color</button>
+    </div>
+  </div>
+
+  <script>
+    // Page transition function
+    function navigateWithTransition(url) {
+      const transition = document.getElementById('pageTransition');
+      transition.classList.add('active');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300);
+    }
+
+    const wheel = document.getElementById('colorWheel');
+    const card = document.getElementById('card');
+    
+    // Load card name from sessionStorage
+    const cardName = sessionStorage.getItem('cardName');
+    if (cardName) {
+      document.getElementById('cardNameDisplay').textContent = cardName.toUpperCase();
+    }
+
+    let isMouseDown = false;
+    let canvas, ctx, img;
+
+    // Preload the image and create canvas for better performance
+    img = new Image();
+    img.src = 'colorwheel.png';
+    img.onload = () => {
+      canvas = document.createElement('canvas');
+      const rect = wheel.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, rect.width, rect.height);
+    };
+
+    function getColorFromPosition(e) {
+      if (!canvas || !ctx) {
+        console.log('Canvas not ready');
+        return;
+      }
+      
+      const rect = wheel.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Check if the click is within the circular area
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+      const radius = rect.width / 2;
+      
+      if (distance <= radius) {
+        const pixel = ctx.getImageData(x, y, 1, 1).data;
+        const color = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+        card.style.background = color;
+        console.log('Color changed to:', color);
+      }
+    }
+
+    wheel.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      isMouseDown = true;
+      console.log('Mouse down, isMouseDown:', isMouseDown);
+      getColorFromPosition(e);
+    });
+
+    wheel.addEventListener('mousemove', function(e) {
+      if (isMouseDown) {
+        e.preventDefault();
+        console.log('Mouse move while down');
+        getColorFromPosition(e);
+      }
+    });
+
+    wheel.addEventListener('mouseup', function(e) {
+      e.preventDefault();
+      isMouseDown = false;
+      console.log('Mouse up, isMouseDown:', isMouseDown);
+    });
+
+    wheel.addEventListener('mouseleave', function() {
+      isMouseDown = false;
+    });
+
+    // Prevent context menu on right click
+    wheel.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // Handle touch events for mobile devices
+    wheel.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      isMouseDown = true;
+      getColorFromPosition(e.touches[0]);
+    });
+
+    wheel.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      if (isMouseDown) {
+        getColorFromPosition(e.touches[0]);
+      }
+    });
+
+    wheel.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      isMouseDown = false;
+    });
+
+    function confirmColor() {
+      const cardName = sessionStorage.getItem('cardName');
+      const cardColor = card.style.background;
+      
+      if (cardName && cardColor) {
+        // Store color in sessionStorage for the final step
+        sessionStorage.setItem('cardColor', cardColor);
+        
+        // Add success animation
+        const btn = document.querySelector('.confirm-btn');
+        btn.style.animation = 'pulse 0.3s ease-out';
+        btn.textContent = 'Creating...';
+        
+        setTimeout(() => {
+          navigateWithTransition('cardcreated.html');
+        }, 300);
+      } else {
+        // Show error with animation
+        const btn = document.querySelector('.confirm-btn');
+        btn.style.animation = 'pulse 0.3s ease-out';
+        btn.textContent = 'Please select a color!';
+        btn.style.background = '#f44336';
+        btn.style.color = 'white';
+        btn.style.borderColor = '#f44336';
+        
+        setTimeout(() => {
+          btn.style.animation = '';
+          btn.textContent = 'Confirm Color';
+          btn.style.background = 'transparent';
+          btn.style.color = 'white';
+          btn.style.borderColor = 'white';
+        }, 1500);
+      }
+    }
+  </script>
+</body>
+</html>

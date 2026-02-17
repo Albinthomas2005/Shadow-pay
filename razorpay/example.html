@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+        .product-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product-details h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .product-details p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .btn {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        .btn-secondary {
+            background: #6b7280;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        .examples {
+            margin-top: 30px;
+        }
+        .example-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+        }
+        .code {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dynamic Payment Page Examples</h1>
+        
+        <div class="product-card">
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop" alt="Product" class="product-image">
+                <div class="product-details">
+                    <h3>Premium Wireless Headphones</h3>
+                    <p>Noise-cancelling bluetooth headphones with 30-hour battery</p>
+                    <p><strong>Merchant:</strong> TechStore India</p>
+                    <p class="price">₹1,299.00</p>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="index.html" class="btn">Pay with Default Data</a>
+                <a href="#" onclick="openPaymentWithData()" class="btn btn-secondary">Pay with Custom Data</a>
+            </div>
+        </div>
+
+        <div class="examples">
+            <h2>Usage Examples</h2>
+            
+            <div class="example-item">
+                <h3>1. Basic Usage (Default Data)</h3>
+                <p>Open the payment page with default product data:</p>
+                <div class="code">window.open('index.html', '_blank');</div>
+            </div>
+
+            <div class="example-item">
+                <h3>2. Custom Product Data via URL Parameters</h3>
+                <p>Pass custom product data through URL parameters:</p>
+                <div class="code">const url = 'index.html?' + new URLSearchParams({
+    name: 'iPhone 15 Pro',
+    description: 'Latest iPhone with advanced camera system',
+    price: 99999,
+    quantity: 1,
+    image: 'https://example.com/iphone.jpg',
+    merchantName: 'Apple Store',
+    merchantEmail: 'support@apple.com'
+}).toString();
+window.open(url, '_blank');</div>
+            </div>
+
+            <div class="example-item">
+                <h3>3. Handle Purchase Completion</h3>
+                <p>Listen for purchase completion messages:</p>
+                <div class="code">// Listen for messages from payment page
+window.addEventListener('message', function(event) {
+    if (event.data.success) {
+        console.log('Purchase completed:', event.data);
+        // Handle successful purchase
+        alert('Payment successful! Transaction ID: ' + event.data.transactionId);
+    }
+});
+
+// Or check localStorage
+const purchaseData = localStorage.getItem('purchaseCompletion');
+if (purchaseData) {
+    const data = JSON.parse(purchaseData);
+    console.log('Purchase data:', data);
+}</div>
+            </div>
+
+            <div class="example-item">
+                <h3>4. Check URL Parameters for Completion</h3>
+                <p>Check URL parameters after payment completion:</p>
+                <div class="code">const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('payment_status') === 'success') {
+    const transactionId = urlParams.get('transaction_id');
+    const amount = urlParams.get('amount');
+    const method = urlParams.get('method');
+    console.log('Payment completed:', { transactionId, amount, method });
+}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPaymentWithData() {
+            // Example with custom data
+            const customData = {
+                name: 'MacBook Pro 16"',
+                description: 'Powerful laptop for professionals',
+                price: 199999,
+                quantity: 1,
+                image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop',
+                merchantName: 'Apple Store',
+                merchantEmail: 'support@apple.com',
+                merchantLogo: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=100&h=100&fit=crop'
+            };
+
+            const url = 'index.html?' + new URLSearchParams(customData).toString();
+            window.open(url, '_blank');
+        }
+
+        // Example of listening for purchase completion
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.success) {
+                alert('Payment completed successfully!\n' +
+                      'Transaction ID: ' + event.data.transactionId + '\n' +
+                      'Amount: ₹' + event.data.amount + '\n' +
+                      'Method: ' + event.data.paymentMethod);
+            }
+        });
+    </script>
+</body>
+</html>

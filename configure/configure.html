@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #6b6b6b;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 0.6fr;
+            gap: 30px;
+        }
+
+        .card-section, .funds-section, .actions-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1a0a4e 0%, #4a1e7c 100%);
+            border-radius: 24px;
+            padding: 40px;
+            color: white;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .card-name {
+            font-size: 2rem;
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+
+        .card-number {
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .card-expiry {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .control-item {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .control-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .toggle {
+            width: 60px;
+            height: 32px;
+            background: #333;
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            right: 3px;
+            transition: 0.3s;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .funds-box, .merchant-box {
+            background: white;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .funds-box h2, .merchant-box h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .payment-logo {
+            height: 40px;
+        }
+
+        .merchant-box h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verified {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .merchant-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .merchant-icon {
+            background: #f0f0f0;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .merchant-icon:hover {
+            transform: scale(1.05);
+            background: #e8e8e8;
+        }
+
+        .action-button {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .action-button h3 {
+            font-size: 1.5rem;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .action-icon {
+            font-size: 3rem;
+        }
+
+        .balance-item {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-size: 1.4rem;
+        }
+
+        .balance-label {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .eye-icon {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Card Management</h1>
+        
+        <div class="content">
+            <!-- Left Column - Card Section -->
+            <div class="card-section">
+                <div class="card">
+                    <div class="card-name">Card Name</div>
+                    <div class="card-number">xxxx xxxx xxxx xxxx</div>
+                    <div class="card-expiry">EXP 02/28</div>
+                </div>
+
+                <div class="control-item">
+                    <span>Enabled</span>
+                    <div class="toggle"></div>
+                </div>
+
+                <div class="control-item">
+                    <span>Card Name</span>
+                    <span class="icon">✏️</span>
+                </div>
+
+                <div class="control-item">
+                    <span>xxxx xxxx xxxx xxxx</span>
+                    <span class="icon">📋</span>
+                </div>
+
+                <div class="balance-item">
+                    <span class="balance-label">BAL : 2398.00 INR</span>
+                    <span class="eye-icon">👁️</span>
+                </div>
+            </div>
+
+            <!-- Middle Column - Funds & Merchant -->
+            <div class="funds-section">
+                <div class="funds-box">
+                    <h2>Add Funds</h2>
+                    <div class="payment-methods">
+                        <span style="font-size: 2.5rem;">💳</span>
+                        <span style="font-size: 2.5rem;">📱</span>
+                        <span style="font-size: 2.5rem;">💵</span>
+                        <span style="font-size: 2.5rem;">🏦</span>
+                    </div>
+                </div>
+
+                <div class="merchant-box">
+                    <h2>Merchant Lock <span class="verified">verified</span></h2>
+                    <div class="merchant-grid">
+                        <div class="merchant-icon">🚗</div>
+                        <div class="merchant-icon">📦</div>
+                        <div class="merchant-icon">🛒</div>
+                        <div class="merchant-icon">🍔</div>
+                        <div class="merchant-icon">🍦</div>
+                        <div class="merchant-icon">🍔</div>
+                        <div class="merchant-icon">🎵</div>
+                        <div class="merchant-icon">🎬</div>
+                        <div class="merchant-icon">📺</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Actions -->
+            <div class="actions-section">
+                <div class="action-button">
+                    <h3>Transactions</h3>
+                    <span class="action-icon">🕐</span>
+                </div>
+
+                <div class="action-button">
+                    <h3>AutoPay</h3>
+                    <span class="action-icon">💲</span>
+                </div>
+
+                <div class="action-button">
+                    <h3>Delete Card</h3>
+                    <span class="action-icon">🗑️</span>
+                </div>
+
+                <div class="action-button">
+                    <span class="action-icon">🏠</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+/* Landing collage styles */
+:root{
+  --bg:#081226;
+  --accent:#6ee7b7;
+  --text:#e6eef8;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+.collage{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4rem 1rem}
+
+/* Base layer styles */
+.layer{position:absolute;max-width:80vmin;height:auto;will-change:transform,opacity;filter:drop-shadow(0 8px 30px rgba(2,6,23,0.6));}
+
+/* Individual positions inspired by reference.png */
+.layer-1{left:5%;top:10%;width:50vmin;transform:rotate(-6deg);z-index:1;opacity:0.98}
+.layer-2{right:6%;top:4%;width:44vmin;transform:rotate(4deg);z-index:2;opacity:0.95}
+.layer-3{left:18%;bottom:4%;width:40vmin;transform:rotate(-2deg);z-index:3;opacity:0.98}
+.layer-4{right:20%;bottom:10%;width:30vmin;transform:rotate(8deg);z-index:4;opacity:1}
+
+/* Hero content sits above the collage */
+.hero{position:relative;z-index:10;max-width:720px;text-align:center;padding:3rem 1rem;background:linear-gradient(180deg,rgba(8,18,38,0.25),rgba(8,18,38,0.4));border-radius:12px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 0.5rem}
+.hero .lead{margin:0 0 1.25rem;font-size:1.05rem;color:rgba(230,238,248,0.9)}
+.cta-row{display:flex;gap:0.75rem;justify-content:center}
+.btn{display:inline-block;padding:0.7rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:#022;box-shadow:0 8px 20px rgba(110,231,183,0.12)}
+.btn.ghost{background:transparent;border:1px solid rgba(230,238,248,0.12);color:var(--text)}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .layer{max-width:60vmin}
+  .layer-1{left:4%;top:6%;width:56vmin;transform:rotate(-4deg)}
+  .layer-2{right:4%;top:2%;width:52vmin;transform:rotate(2deg)}
+  .layer-3{left:14%;bottom:2%;width:48vmin}
+  .layer-4{right:12%;bottom:8%;width:36vmin}
+  .hero{padding:2rem}
+}
+
+@media (max-width:520px){
+  .collage{padding:2rem 0}
+  .layer{display:none} /* hide decorative layers on very small screens for clarity */
+  .hero{background:transparent;padding:1.5rem}
+}

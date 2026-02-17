@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadowPay | Card Created</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0c0c0c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('./created.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    /* Page transition overlay */
+    .page-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0c0c0c 100%);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .page-transition.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes celebrate {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-20px) rotate(-5deg); }
+      75% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    .back-icon {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+      animation: slideInLeft 0.6s ease-out 0.2s both;
+    }
+
+    .back-icon:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+    }
+
+    .back-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: white;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      z-index: 10;
+      position: relative;
+      animation: slideInUp 0.8s ease-out 0.4s both, celebrate 1s ease-in-out 1.2s;
+      background: linear-gradient(45deg, #fff, #4CAF50, #fff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideInUp 0.8s ease-out 0.4s both, shimmer 3s linear 1.2s infinite;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      z-index: 10;
+      position: relative;
+      animation: slideInUp 0.8s ease-out 0.6s both;
+    }
+
+    .card-display {
+      width: 430px;
+      height: 270px;
+      background: #8d8d8d;
+      border-radius: 20px;
+      color: white;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      animation: celebrate 1s ease-in-out 0.8s;
+      transition: all 0.3s ease;
+    }
+
+    .card-display:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .card-chip {
+      width: 45px;
+      height: 30px;
+      background: linear-gradient(135deg, #d9d9d9, #ffffff);
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-number {
+      letter-spacing: 2px;
+      font-size: 20px;
+      opacity: 0.9;
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cardholder {
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .configure-btn {
+      padding: 12px 40px;
+      border: 2px solid white;
+      border-radius: 10px;
+      background: transparent;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: slideInUp 0.8s ease-out 1s both;
+    }
+
+    .configure-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .configure-btn:hover::before {
+      left: 100%;
+    }
+
+    .configure-btn:hover {
+      background: white;
+      color: black;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+    }
+
+    .configure-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    .configure-btn:disabled:hover {
+      background: transparent;
+      color: white;
+      transform: none;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Page transition overlay -->
+  <div class="page-transition" id="pageTransition"></div>
+
+  <div class="back-icon" onclick="navigateWithTransition('dashboard.php')">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </div>
+
+  <h1>Your Card is Ready</h1>
+
+  <div class="container">
+    <div class="card-display">
+      <div class="card-top">
+        <div class="card-chip"></div>
+        <div class="brand">SHADOWPAY</div>
+      </div>
+      <div class="card-number">XXXX XXXX XXXX XXXX</div>
+      <div class="card-bottom">
+        <div class="cardholder" id="cardNameDisplay">CARD NAME</div>
+        <div class="brand">VIRTUAL</div>
+      </div>
+    </div>
+
+    <button class="configure-btn" id="confirmBtn" disabled>Confirm & View Card</button>
+  </div>
+
+  <script>
+    // Page transition function
+    function navigateWithTransition(url) {
+      const transition = document.getElementById('pageTransition');
+      transition.classList.add('active');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300);
+    }
+
+    // Preload background image
+    const bgImage = new Image();
+    bgImage.onload = function() {
+      console.log('Background image loaded successfully');
+      document.body.style.backgroundImage = 'url("./created.png")';
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center center';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundAttachment = 'fixed';
+    };
+    bgImage.onerror = function() {
+      console.log('Failed to load background image, trying alternative path');
+      document.body.style.backgroundImage = 'url("created.png")';
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center center';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundAttachment = 'fixed';
+    };
+    bgImage.src = './created.png';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load card data from sessionStorage and display it
+      const cardName = sessionStorage.getItem('cardName');
+      const cardColor = sessionStorage.getItem('cardColor');
+    
+      if (cardName) {
+        document.getElementById('cardNameDisplay').textContent = cardName.toUpperCase();
+      }
+    
+      if (cardColor) {
+        document.querySelector('.card-display').style.background = cardColor;
+      }
+
+      // Automatically create the card on page load
+      createCard();
+    });
+    
+    function createCard() {
+      const cardName = sessionStorage.getItem('cardName');
+      const cardColor = sessionStorage.getItem('cardColor');
+      
+      if (!cardName || !cardColor) {
+        alert('Missing card information. Please go back and try again.');
+        return;
+      }
+      
+      // Convert RGB to hex if needed
+      let hexColor = cardColor;
+      if (cardColor.startsWith('rgb')) {
+        const rgb = cardColor.match(/\d+/g);
+        hexColor = '#' + rgb.map(x => parseInt(x).toString(16).padStart(2, '0')).join('');
+      }
+      
+      // Create the card via API
+      fetch('/ui/api/cards.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          card_name: cardName,
+          card_color: hexColor
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.card) {
+          // Update the display with the actual card number
+          document.querySelector('.card-number').textContent = data.card.card_number;
+          
+          // Enable the button and set its action
+          const confirmBtn = document.getElementById('confirmBtn');
+          confirmBtn.disabled = false;
+          
+          // Add success animation
+          confirmBtn.style.animation = 'celebrate 0.5s ease-out';
+          setTimeout(() => {
+            confirmBtn.style.animation = 'slideInUp 0.8s ease-out 1s both';
+          }, 500);
+          
+          confirmBtn.onclick = () => {
+            confirmBtn.textContent = 'Loading...';
+            confirmBtn.style.animation = 'pulse 0.5s ease-out';
+            navigateWithTransition('../configure/configure.php?card_id=' + data.card.id);
+          };
+
+          // Clear sessionStorage
+          sessionStorage.removeItem('cardName');
+          sessionStorage.removeItem('cardColor');
+        } else {
+          alert('Error creating card: ' + (data.error || 'Unknown error'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating card. Please try again.');
+      });
+    }
+  </script>
+</body>
+</html>

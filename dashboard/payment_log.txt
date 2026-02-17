@@ -1,0 +1,8 @@
+2025-10-12 20:02:05 - Payment completed: {"user_id":12,"plan":"pro","transaction_id":"ORDER_5JL9JWHAA","amount":2596,"payment_method":"card","timestamp":"2025-10-12T18:02:05.839Z","created_at":"2025-10-12 20:02:05"}
+2025-10-12 20:06:05 - Payment completed: {"user_id":13,"plan":"basic","transaction_id":"ORDER_DRQ3L7G9Y","amount":236,"payment_method":"card","timestamp":"2025-10-12T18:06:05.433Z","created_at":"2025-10-12 20:06:05"}
+2025-10-12 20:07:58 - Payment completed: {"user_id":13,"plan":"pro","transaction_id":"ORDER_JS6CI5I05","amount":2596,"payment_method":"card","timestamp":"2025-10-12T18:07:58.685Z","created_at":"2025-10-12 20:07:58"}
+2025-10-12 21:02:44 - Payment completed: {"user_id":7,"plan":"basic","transaction_id":"ORDER_180D8MR9L","amount":236,"payment_method":"card","timestamp":"2025-10-12T19:02:44.415Z","created_at":"2025-10-12 21:02:44"}
+2025-10-13 05:22:37 - Payment completed: {"user_id":14,"plan":"basic","transaction_id":"ORDER_UGHT113W5","amount":236,"payment_method":"card","timestamp":"2025-10-13T03:22:37.539Z","created_at":"2025-10-13 05:22:37"}
+2025-10-13 05:26:41 - Payment completed: {"user_id":14,"plan":"pro","transaction_id":"ORDER_H44GAE3PR","amount":2596,"payment_method":"card","timestamp":"2025-10-13T03:26:41.320Z","created_at":"2025-10-13 05:26:41"}
+2025-10-13 07:08:38 - Payment completed: {"user_id":15,"plan":"basic","transaction_id":"ORDER_8PQ7PFX30","amount":200,"payment_method":"upi","timestamp":"2025-10-13T05:08:38.600Z","created_at":"2025-10-13 07:08:38"}
+2025-10-13 07:09:08 - Payment completed: {"user_id":15,"plan":"pro","transaction_id":"ORDER_F0RJ1ELMV","amount":2200,"payment_method":"upi","timestamp":"2025-10-13T05:09:08.023Z","created_at":"2025-10-13 07:09:08"}
